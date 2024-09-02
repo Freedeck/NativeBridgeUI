@@ -151,6 +151,8 @@ namespace NativeBridge
                 if ((req.HttpMethod == "POST") && (req.Url.AbsolutePath == "/shutdown"))
                 {
                     Console.WriteLine("Shutdown requested");
+                    MessageBox.Show("NativeBridge is exiting!");
+
                     runServer = false;
                 }
 

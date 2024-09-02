@@ -1,5 +1,6 @@
 using CSCore.CoreAudioAPI;
 using SharpHook;
+using SharpHook.Native;
 using System.Diagnostics;
 using System.Text.Json.Nodes;
 namespace NativeBridgeUI
@@ -15,7 +16,6 @@ namespace NativeBridgeUI
 
         private void Form1_Shown(object? sender, EventArgs e)
         {
-            MessageBox.Show("Press CTRL+SHIFT+N to bring the NativeBridge UI back.", "Freedeck NativeBridge is running!");
             this.Hide();
         }
 
@@ -85,7 +85,6 @@ namespace NativeBridgeUI
 
         private void button1_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Press CTRL+SHIFT+N to bring the window back.");
             var hook = new TaskPoolGlobalHook();
             hook.KeyPressed += Hook_KeyPressed;
             Task task = Task.Run(async () =>
@@ -101,31 +100,6 @@ namespace NativeBridgeUI
 
         private void Hook_KeyPressed(object? sender, KeyboardHookEventArgs e)
         {
-            if(e.Data.KeyCode == SharpHook.Native.KeyCode.VcLeftControl)
-            {
-                mod = "CTRL";
-            }
-            if(e.Data.KeyCode == SharpHook.Native.KeyCode.VcLeftShift)
-            {
-                mod2 = "SHIFT";
-            }
-            if(e.Data.KeyCode == SharpHook.Native.KeyCode.VcN)
-            {
-                if(mod == "CTRL" && mod2 == "SHIFT")
-                {
-                    this.Invoke(delegate
-                    {
-                        this.Show();
-                    });
-                }
-            }
-            if (e.Data.KeyCode == SharpHook.Native.KeyCode.VcR)
-            {
-                if (mod == "CTRL" && mod2 == "SHIFT")
-                {
-                    Task.Run(() => Calc());
-                }
-            }
         }
 
         private void button2_Click(object sender, EventArgs e)
